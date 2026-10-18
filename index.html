@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0e0c0b">
+<title>Ajdan Pavilion · 360° Tour</title>
+<link rel="stylesheet" href="app/fonts.css">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+
+<!-- ============ LANDING ============ -->
+<section id="landing" class="screen is-active" aria-label="Welcome">
+  <img class="hero" id="heroImg" alt="">
+  <div class="hero-shade"></div>
+  <header class="bar">
+    <div class="brand" data-brand></div>
+    <button class="lang" data-lang-toggle type="button">ع</button>
+  </header>
+  <div class="landing-panel">
+    <p class="eyebrow" data-t="landing.eyebrow"></p>
+    <h1 class="display" data-t="landing.title"></h1>
+    <span class="rule"></span>
+    <p class="lede" data-t="landing.subtitle"></p>
+    <button class="cta" id="startBtn" type="button">
+      <span data-t="landing.button"></span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+    </button>
+    <p class="meta"><span id="pointCount"></span></p>
+  </div>
+  <div class="landing-foot"><span class="dot"></span><span data-t="ui.footHint"></span></div>
+</section>
+
+<!-- ============ TOP VIEW / PLAN ============ -->
+<section id="map" class="screen" aria-label="Plan">
+  <header class="bar bar--solid">
+    <button class="icon-btn" id="mapHome" type="button" data-tip="ui.home">
+      <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <div class="brand" data-brand></div>
+    <button class="lang" data-lang-toggle type="button">ع</button>
+  </header>
+  <div class="map-body">
+    <aside class="map-side">
+      <p class="eyebrow" data-t="ui.planEyebrow"></p>
+      <h2 class="display display--sm" data-t="topView.title"></h2>
+      <p class="lede lede--sm" data-t="topView.hint"></p>
+      <ol class="point-list" id="pointList"></ol>
+    </aside>
+    <main class="plan-wrap">
+      <div class="level-tabs" id="levelTabs" role="tablist"></div>
+      <div class="plan" id="plan">
+        <img id="planImg" alt="">
+        <div class="pins" id="pins"></div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- ============ 360 TOUR ============ -->
+<section id="tour" class="screen" aria-label="360 view">
+  <canvas id="pano"></canvas>
+  <div class="hs-layer" id="hsLayer"></div>
+
+  <header class="bar bar--overlay">
+    <button class="icon-btn" id="toPlan" type="button" data-tip="ui.plan">
+      <svg viewBox="0 0 24 24"><path d="M4 6.5l5-2 6 2 5-2v13l-5 2-6-2-5 2z M9 4.5v13 M15 6.5v13"/></svg>
+    </button>
+    <div class="scene-title">
+      <span class="scene-num" id="sceneNum">01</span>
+      <span class="scene-name" id="sceneName"></span>
+    </div>
+    <button class="lang" data-lang-toggle type="button">ع</button>
+  </header>
+
+  <div class="minimap" id="minimap" title="">
+    <img id="miniImg" alt="">
+    <span class="mini-level" id="miniLevel"></span>
+    <svg class="mini-cone" id="miniCone" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+    <div class="mini-pins" id="miniPins"></div>
+  </div>
+
+  <nav class="controls" id="controls">
+    <button class="icon-btn" id="prevBtn" type="button" data-tip="ui.prev"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="icon-btn" id="nextBtn" type="button" data-tip="ui.next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <span class="sep"></span>
+    <button class="icon-btn" id="rotBtn" type="button" data-tip="ui.rotate"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg></button>
+    <button class="icon-btn" id="gyroBtn" type="button" data-tip="ui.gyro"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M3 9c-1 2-1 4 0 6M21 9c1 2 1 4 0 6"/></svg></button>
+    <button class="icon-btn" id="vrBtn" type="button" data-tip="ui.vr"><svg viewBox="0 0 24 24"><path d="M3 8h18v9h-6l-2-3h-2l-2 3H3z"/><circle cx="8" cy="12" r="1.4"/><circle cx="16" cy="12" r="1.4"/></svg></button>
+    <button class="icon-btn" id="fsBtn" type="button" data-tip="ui.fullscreen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </nav>
+
+  <aside class="info-card" id="infoCard" aria-live="polite">
+    <button class="icon-btn icon-btn--plain close" id="infoClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img id="infoImg" alt="">
+    <p class="eyebrow" id="infoScene"></p>
+    <h3 class="display display--xs" id="infoTitle"></h3>
+    <span class="rule"></span>
+    <p class="lede lede--sm" id="infoText"></p>
+  </aside>
+
+  <div class="loader" id="loader"><div class="loader-mark"></div><p data-t="ui.loading"></p></div>
+  <div class="error" id="errorBox" hidden></div>
+
+  <div class="dev" id="dev" hidden><div class="cross"></div><div class="readout" id="devReadout"></div></div>
+  <button class="vr-exit" id="vrExit" type="button" hidden><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="drag-hint" id="dragHint"><svg viewBox="0 0 48 24"><path d="M6 12h36M12 6l-6 6 6 6M36 6l6 6-6 6"/></svg><span data-t="ui.drag"></span></div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="assets/panos/packed/manifest.js"></script>
+<script src="arrows.js"></script>
+<script src="info.js"></script>
+<script src="app/viewer.js"></script>
+<script src="app/app.js"></script>
+</body>
+</html>
